@@ -26,8 +26,9 @@ func (e *EndpointModifier) defaultModify(endpoint string) string {
 	verb := segments[0]
 	shortSegments := segments[e.SegmentStart : e.SegmentStart+e.SegmentsNeeded]
 	if len(e.Prefix) > 0 {
-		shortSegments = slices.Insert(shortSegments, 0, verb, e.Prefix)
+		shortSegments = slices.Insert(shortSegments, 0, e.Prefix)
 	}
+	shortSegments = slices.Insert(shortSegments, 0, verb)
 	return strings.Join(shortSegments, "/")
 }
 

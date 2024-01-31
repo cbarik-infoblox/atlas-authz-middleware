@@ -31,7 +31,7 @@ func AuthzMiddleware(application string, opts ...Option) func(http.Handler) http
 			authorizers := cfg.GetAuthorizer()
 			for _, auther := range authorizers {
 				//REVIEW: identify if returned ctx is needed or not
-				ok, _, err = auther.Evaluate(ctx, getEndpoint(r), nil, auther.OpaQuery)
+				ok, _, err = auther.Evaluate(ctx, getEndpoint(r), r, auther.OpaQuery)
 				if err != nil {
 					logger.WithError(err).WithField("authorizer", auther).Error("unable_authorize")
 				}

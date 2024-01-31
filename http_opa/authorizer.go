@@ -80,7 +80,7 @@ func (a *httpAuthorizer) Evaluate(ctx context.Context, endpoint string, req inte
 	bearer, err := util.GetBearerFromRequest(req.(*http.Request))
 	if err != nil {
 		logger.WithError(err).Error("get_bearer_from_request")
-		return false, ctx, exception.ErrAbstrForbidden
+		return false, ctx, exception.ErrForbidden
 	}
 
 	claimsVerifier := a.claimsVerifier

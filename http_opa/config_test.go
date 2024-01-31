@@ -17,7 +17,7 @@ func TestEndpointModifier_defaultModify(t *testing.T) {
 		want   string
 	}{
 		{
-			name: "success",
+			name: "success with prefix",
 			fields: fields{
 				DefaultModifyConfig: DefaultModifyConfig{
 					SegmentsNeeded: 2,
@@ -29,6 +29,32 @@ func TestEndpointModifier_defaultModify(t *testing.T) {
 				endpoint: "GET /nios/v1.2/grid/id",
 			},
 			want: "GET /wapi/grid/id",
+		},
+		{
+			name: "success without prefix",
+			fields: fields{
+				DefaultModifyConfig: DefaultModifyConfig{
+					SegmentsNeeded: 2,
+					SegmentStart:   3,
+				},
+			},
+			args: args{
+				endpoint: "GET /nios/v1.2/grid/id",
+			},
+			want: "GET /grid/id",
+		},
+		{
+			name: "success without segment",
+			fields: fields{
+				DefaultModifyConfig: DefaultModifyConfig{
+					SegmentsNeeded: 0,
+					SegmentStart:   0,
+				},
+			},
+			args: args{
+				endpoint: "GET /nios/v1.2/grid/id",
+			},
+			want: "GET ",
 		},
 	}
 	for _, tt := range tests {
